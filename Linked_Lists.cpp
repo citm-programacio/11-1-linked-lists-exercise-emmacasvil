@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-using namespace std; 
+using namespace std;
 
 // Declaration of a doubly-linked list
 class List {
@@ -38,9 +38,9 @@ public:
 		}
 		else {
 			first = last = new_node; //If the list is empty
-		} 
+		}
 
-		num_elems++; 
+		num_elems++;
 	}
 
 	void push_front(const int& value)
@@ -56,71 +56,77 @@ public:
 		{
 			first = last = new_node; //If the list is empty
 		}
-		
+
 		num_elems++;
 	}
 
 
 	void insert(unsigned int position, const int& value)
 	{
-		Node* new_node = new Node(value); 
+		Node* new_node = new Node(value);
 
 		if (position == 0) // If it's the first position
 		{
 			if (first)
 			{
-				new_node->next = first; 
-				first->prev = new_node; 
-				first = new_node; 
+				new_node->next = first;
+				first->prev = new_node;
+				first = new_node;
 			}
 			else //If it's empty
 			{
-				first = last = new_node; 
+				first = last = new_node;
 			}
 		}
 		else if (position == num_elems) //If it's the last position
 		{
-			push_back(value); 
-			return; 
+			push_back(value);
+			return;
 		}
 		else //If the position is in the middle 
 		{
 			Node* current = first; //We create a new node
 			for (int i = 0; i < position; i++) //We move it to the desired position
 			{
-				current = current->next; 
+				current = current->next;
 			}
-			
+
 			//Set and link the new node to the "sides"
 			new_node->next = current;
 			new_node->prev = current->prev;
 			current->prev->next = new_node;
 			current->prev = new_node;
 		}
-		num_elems++; 
+		num_elems++;
 	}
+
+	void print_list(Node* node)
+	{
+		//base case
+		if (node == nullptr)
+		{
+			cout << endl; 
+			return;
+		}
+		//recursive case
+		cout << node->value << "  "; 
+		print_list(node->next); 
+	}
+
 
 	void print_list()
 	{
-		Node* it = first; 
-
-		while (it != nullptr)
-		{
-			cout << it->value << "  "; 
-			it = it->next; 
-		}
-
-		cout << endl; 
+		print_list(first); 
 	}
 };
 
 
 int main()
 {
-	List myList;  
-	
-	myList.push_back(3); 
-	myList.print_list(); 
+	List myList;
+
+	myList.push_back(3);
+	myList.print_list();
 	myList.push_back(7);
 	myList.print_list();
 	myList.push_front(10);
@@ -130,8 +136,8 @@ int main()
 	myList.insert(0, 2);
 	myList.print_list();
 
-	system("pause"); 
-	return 0; 
+	system("pause");
+	return 0;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
